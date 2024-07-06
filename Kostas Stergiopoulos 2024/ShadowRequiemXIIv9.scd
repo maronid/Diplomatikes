@@ -1,4 +1,8 @@
-//Shadow Requiem XII v9
+/* Welcome to Shadow Requiem XII v9 !! A contemporary musical instrument based on SuperCollider music programming environment and TouchOSC, a software for custom user interface development. The instrument consists of the code, which is the .scd file, the user interface which is the TouchOSC layout in .tosc format and the folder containing the sound files. In order to play the instrument you need the TouchOSC app installed in your smartphone.*/
+/* NOTES:
+1) To navigate the folder containing the sound files you need to change the directory inside the code in the "LOAD SAMPLES" section.
+2) If you wish to change the sound files as well as their number you have to adjust the code in OSC DEFINITIONS/TRIGGER section. The part of the code "\buf, ~elements[rrand(0, 2)]" is responsible for choosing a sound file to play. The first sound file inside the folder is in the 0 position, the second in the 1 position etc. Adjust to your liking. For example, if you want to play the first sound file inside the folder the code should look like this "\buf, ~elements[0]".
+*/
 
 (
 s.waitForBoot{
@@ -9,6 +13,7 @@ s.freeMyDefaultGroup;
 s.sync;
 //-----------------------------------------------------LOAD SAMPLES
 ~elements = Array.new;
+//-------------------------------------------------Change folder directory inside the brackets below
 ~elementsfolder = PathName.new("/Users/kostasstergiopoulos/Documents/SuperCollider Projects/ShadowRequiemXII Project v9/Sounds/");
 ~elementsfolder.entries.do({
     arg path;
@@ -40,12 +45,12 @@ s.sync;
 ~synth4start = 0;
 ~synth5start = 0;
 ~synth6start = 0;
-~synth1end = 493919;
-~synth2end = 493919;
-~synth3end = 493919;
-~synth4end = 493919;
-~synth5end = 493919;
-~synth6end = 493919;
+~synth1end = 494630;
+~synth2end = 494630;
+~synth3end = 494630;
+~synth4end = 494630;
+~synth5end = 494630;
+~synth6end = 494630;
 s.sync;
 //------------------------------------------------------MAIN SYNTH
 SynthDef.new(\element, {
@@ -63,7 +68,7 @@ SynthDef.new(\element, {
 s.sync;
 //------------------------------------------------------DELAY SYNTH
 SynthDef(\delay, {
-	arg amp =  0,max = 5, del = 0.7, dec = 5, pingpong = 0, pingpongfreq = 0.5;
+	arg amp =  0, max = 5, del = 0.7, dec = 5, pingpong = 0, pingpongfreq = 0.5;
 	var sig, env;
 	sig = In.ar(~fx, 2);
 	env = EnvGen.kr(Env.adsr(sustainLevel: 1), doneAction: 2);
@@ -227,42 +232,42 @@ OSCdef.new(\synth6start,{
 //-------------------------------------TRIM FROM END
 OSCdef.new(\synth1end,{
 		arg msg;
-		~synth1end = msg[1].linexp(0,1,493919,3000);
+		~synth1end = msg[1].linexp(0,1,494630,3000);
 		~synth1.set(\end, ~synth1end);
 	},
 	'/1/end1'
           );
 OSCdef.new(\synth2end,{
 		arg msg;
-		~synth2end = msg[1].linexp(0,1,493919,3000);
+		~synth2end = msg[1].linexp(0,1,494630,3000);
 		~synth2.set(\end, ~synth2end);
 	},
 	'/1/end2'
           );
 OSCdef.new(\synth3end,{
 		arg msg;
-		~synth3end = msg[1].linexp(0,1,493919,3000);
+		~synth3end = msg[1].linexp(0,1,494630,3000);
 		~synth3.set(\end, ~synth3end);
 	},
 	'/2/end3'
           );
 OSCdef.new(\synth4end,{
 		arg msg;
-		~synth4end = msg[1].linexp(0,1,493919,3000);
+		~synth4end = msg[1].linexp(0,1,494630,3000);
 		~synth4.set(\end, ~synth4end);
 	},
 	'/2/end4'
           );
 OSCdef.new(\synth5end,{
 		arg msg;
-		~synth5end = msg[1].linexp(0,1,493919,3000);
+		~synth5end = msg[1].linexp(0,1,494630,3000);
 		~synth5.set(\end, ~synth5end);
 	},
 	'/3/end5'
           );
 OSCdef.new(\synth6end,{
 		arg msg;
-		~synth6end = msg[1].linexp(0,1,493919,3000);
+		~synth6end = msg[1].linexp(0,1,494630,3000);
 		~synth6.set(\end, ~synth6end);
 	},
 	'/3/end6'
@@ -448,11 +453,3 @@ OSCdef.new(\reverbpingpong,{
 	);
 
 })
-
-
-
-
-
-
-
-
